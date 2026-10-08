@@ -9,10 +9,15 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - name: Sync to Fork
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetches all history so branches can sync properly
+    
+      - name: Sync GitHub Repository
         uses: repo-sync/github-sync@v2
         with:
           source_repo: "btdugm-stack/virtual-warga-discord"
-          source_branch: "main"               # Source branch from Original Repo (O)
-          destination_branch: "production"    # Destination branch on Fork Repo (F)
+          source_branch: "main"
+          destination_branch: "production"
           github_token: ${{ secrets.PAT_TOKEN }}
